@@ -3,7 +3,15 @@ import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
 import numpy as np
 import json
+import os
 from src.edge_model import edge_intensity, merged_intensity
+from extract_structure import (
+    find_modules_and_functions,
+    display_project_structure,
+    find_function_calls,
+    build_graph_from_relationships
+)
+
 
 def load_project_graph(file_path):
     """
@@ -31,6 +39,7 @@ def load_project_graph(file_path):
 
     return G
 
+
 def reconnect_isolated_nodes(G):
     """
     Reconnect isolated nodes to the node with the highest out-degree.
@@ -45,6 +54,7 @@ def reconnect_isolated_nodes(G):
         print(f"Reconnecting isolated node {node} to {target_node}")
         G.add_edge(node, target_node, weight=1.0, age=0)  # Default weight and reset age
 
+
 def refine_graph(G, iterations=3):
     """
     Refine the graph by adjusting edge weights, reconnecting nodes,
@@ -54,7 +64,7 @@ def refine_graph(G, iterations=3):
         print(f"\nIteration {i + 1}: Refining graph...")
 
         # Calculate mean edge weight as dynamic threshold
-        weights = [d['weight'] for _, _, d in G.edges(data=True)]
+        weights = [d["weight"] for _, _, d in G.edges(data=True)]
         if weights:
             threshold = sum(weights) / len(weights)
         else:
@@ -62,7 +72,7 @@ def refine_graph(G, iterations=3):
         print(f"Dynamic threshold: {threshold:.2f}")
 
         # Remove edges below the threshold
-        edges_to_remove = [(u, v) for u, v, d in G.edges(data=True) if d['weight'] < threshold]
+        edges_to_remove = [(u, v) for u, v, d in G.edges(data=True) if d["weight"] < threshold]
         for edge in edges_to_remove:
             print(f"Removing edge: {edge} (weight < {threshold:.2f})")
         G.remove_edges_from(edges_to_remove)
@@ -72,9 +82,10 @@ def refine_graph(G, iterations=3):
 
         # Adjust weights and track age
         for u, v, d in G.edges(data=True):
-            d['weight'] *= 1.1  # Increase weight by 10%
-            d['age'] = d.get('age', 0) + 1  # Increment age
+            d["weight"] *= 1.1  # Increase weight by 10%
+            d["age"] = d.get("age", 0) + 1  # Increment age
             print(f"Adjusted weight for edge {u} -> {v}: {d['weight']:.2f}, Age: {d['age']}")
+
 
 def visualize_graph(G, title="Graph Visualization"):
     """Visualize the graph with enhanced visual cues."""
@@ -84,83 +95,100 @@ def visualize_graph(G, title="Graph Visualization"):
     node_sizes = [700 + (G.degree(node) * 100) for node in G.nodes]
 
     # Edge colors based on weight
-    edge_weights = [d['weight'] for _, _, d in G.edges(data=True)]
+    edge_weights = [d["weight"] for _, _, d in G.edges(data=True)]
     edge_colors = ["red" if weight > 10 else "blue" for weight in edge_weights]
 
     # Draw graph
     nx.draw(
-        G, pos, with_labels=True, node_size=node_sizes, node_color="lightgreen",
-        edge_color=edge_colors, width=[w / 10 for w in edge_weights]
+        G,
+        pos,
+        with_labels=True,
+        node_size=node_sizes,
+        node_color="lightgreen",
+        edge_color=edge_colors,
+        width=[w / 10 for w in edge_weights],
     )
 
     # Add edge weights as labels
-    edge_labels = nx.get_edge_attributes(G, 'weight')
+    edge_labels = nx.get_edge_attributes(G, "weight")
     nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
 
     plt.title(title)
     plt.show()
 
-def visualize_latent_space(G):
+
+def analyze_existing_project():
     """
-    Map the graph to a 2D latent space using t-SNE for dimensionality reduction.
+    Analyze an existing project structure, generate relationships, and visualize the graph.
     """
-    print("\nMapping graph to latent space...")
-    
-    # Extract nodes and edge weights to build a feature matrix
-    nodes = list(G.nodes)
-    feature_matrix = np.zeros((len(nodes), len(nodes)))
+    project_root = input("Enter the path to the project directory (default: src): ") or "src"
 
-    for i, u in enumerate(nodes):
-        for j, v in enumerate(nodes):
-            if G.has_edge(u, v):
-                feature_matrix[i, j] = G[u][v]['weight']
+    if not os.path.isdir(project_root):
+        print(f"Error: Directory '{project_root}' does not exist.")
+        return
 
-    # Use t-SNE for dimensionality reduction
-    perplexity = min(5, len(nodes) - 1)  # Ensure perplexity is valid
-    tsne = TSNE(n_components=2, random_state=42, perplexity=perplexity)
-    embeddings = tsne.fit_transform(feature_matrix)
+    print("Analyzing project structure...")
+    project_structure = find_modules_and_functions(project_root)
+    display_project_structure(project_structure)
 
-    # Plot the latent space
-    plt.figure(figsize=(10, 6))
-    for i, node in enumerate(nodes):
-        plt.scatter(embeddings[i, 0], embeddings[i, 1], label=node)
-        plt.text(embeddings[i, 0], embeddings[i, 1], node, fontsize=12)
+    # Gather all function relationships
+    all_relationships = []
+    for module, functions in project_structure.items():
+        module_path = os.path.join(project_root, module.replace(".", os.sep) + ".py")
+        if os.path.exists(module_path):
+            print(f"Analyzing function calls in {module}...")
+            relationships = find_function_calls(module_path, functions)
+            all_relationships.extend(relationships)
 
-    plt.title("Latent Space Representation of the Graph")
-    plt.legend()
-    plt.grid(True)
-    plt.show()
+    # Build a graph from the relationships
+    print("\nBuilding graph from relationships...")
+    G = build_graph_from_relationships(all_relationships)
 
-def save_iterations(G, iterations=3, output_dir="output"):
-    """Save each refinement iteration as a PNG."""
-    import os
-    os.makedirs(output_dir, exist_ok=True)
+    # Visualize the graph
+    visualize_graph(G, title="Function Call Graph")
+    save_graph_to_json(G, "output/function_call_graph.json")
 
-    for i in range(iterations):
-        refine_graph(G, iterations=1)  # One step of refinement
-        filename = os.path.join(output_dir, f"graph_iteration_{i + 1}.png")
-        plt.figure()
-        visualize_graph(G, title=f"Iteration {i + 1}")
-        plt.savefig(filename)
-        plt.close()
-        print(f"Saved iteration {i + 1} to {filename}")
+
+def save_graph_to_json(G, filename):
+    graph_data = {
+        "nodes": list(G.nodes),
+        "edges": [
+            {"from": u, "to": v, "weight": d["weight"]}
+            for u, v, d in G.edges(data=True)
+        ],
+    }
+    with open(filename, "w") as f:
+        json.dump(graph_data, f, indent=4)
+    print(f"Graph saved to {filename}")
+
+
+def initialize_new_project():
+    print("Initializing a new project...")
+    G = nx.DiGraph()
+
+    # Example of default nodes and edges
+    G.add_nodes_from(["main.py", "utils.py", "edge_model.py"])
+    G.add_edge("main.py", "edge_model.py", weight=10)
+    G.add_edge("edge_model.py", "utils.py", weight=8)
+
+    # Visualize the initial graph
+    visualize_graph(G, title="New Project Graph")
+
 
 def main():
     print("Welcome to GraphBuilder!")
+    print("Select an option:")
+    print("1. Start a New Project")
+    print("2. Analyze an Existing Project")
+    choice = input("Enter your choice (1 or 2): ")
 
-    # Load the project graph
-    project_file = "src/project_data.json"  # Explicitly specify the correct path
-    G = load_project_graph(project_file)
+    if choice == "1":
+        initialize_new_project()
+    elif choice == "2":
+        analyze_existing_project()
+    else:
+        print("Invalid choice. Exiting...")
 
-    # Visualize initial graph
-    print("Initial Project Graph")
-    visualize_graph(G, title="Initial Project Graph")
-
-    # Save iterations
-    save_iterations(G, iterations=3)
-
-    # Visualize latent space
-    visualize_latent_space(G)
 
 if __name__ == "__main__":
     main()
