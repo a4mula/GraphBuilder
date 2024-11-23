@@ -9,35 +9,21 @@
         "print",
         "nx.DiGraph",
         "data.get",
-        "G.add_nodes_from",
+        "graph.add_nodes_from",
         "open",
         "json.load",
-        "edge.get",
         "edge_intensity",
-        "G.add_edge",
-        "reconnect_isolated_nodes",
-        "max",
-        "G.degree",
-        "G.out_degree",
-        "refine_graph",
-        "range",
-        "G.remove_edges_from",
-        "G.edges",
-        "sum",
-        "len",
-        "d.get",
-        "visualize_graph",
-        "nx.spring_layout",
-        "nx.draw",
-        "nx.get_edge_attributes",
-        "nx.draw_networkx_edge_labels",
-        "plt.title",
-        "plt.show",
+        "graph.add_edge",
+        "edge.get",
         "analyze_existing_project",
         "find_modules_and_functions",
         "display_project_structure",
         "project_structure.items",
         "build_graph_from_relationships",
+        "refine_graph",
+        "visualize_graph",
+        "render_clusters",
+        "visualize_latent_space",
         "save_graph_to_json",
         "input",
         "find_function_calls",
@@ -45,299 +31,679 @@
         "module.replace",
         "list",
         "json.dump",
+        "graph.edges",
         "initialize_new_project",
-        "main"
+        "main",
+        "calculate_threshold",
+        "sum",
+        "len",
+        "prune_edges",
+        "graph.remove_edges_from",
+        "adjust_edge_weights",
+        "reconnect_isolated_nodes",
+        "validate_graph_connectivity",
+        "graph.number_of_edges",
+        "subgraphs.sort",
+        "nx.connected_components",
+        "max",
+        "graph.to_undirected",
+        "graph.degree",
+        "nx.is_connected",
+        "nx.spring_layout",
+        "nx.draw",
+        "nx.get_edge_attributes",
+        "nx.draw_networkx_edge_labels",
+        "plt.title",
+        "plt.savefig",
+        "plt.show",
+        "title.replace",
+        "SpectralClustering",
+        "clustering.fit_predict",
+        "plt.figure",
+        "nx.draw_networkx_nodes",
+        "nx.draw_networkx_edges",
+        "nx.draw_networkx_labels",
+        "nx.adjacency_matrix",
+        "np.zeros",
+        "enumerate",
+        "min",
+        "TSNE",
+        "tsne.fit_transform",
+        "plt.legend",
+        "plt.grid",
+        "plt.scatter",
+        "plt.text",
+        "graph.has_edge",
+        "save_file",
+        "load_file",
+        "read_json",
+        "write_json"
     ],
     "edges": [
         {
             "from": "unidirectional_wave",
             "to": "np.linspace",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "unidirectional_wave",
             "to": "np.sin",
-            "weight": 1
+            "weight": 1.1
+        },
+        {
+            "from": "unidirectional_wave",
+            "to": "visualize_latent_space",
+            "weight": 1.1
         },
         {
             "from": "merged_wave",
             "to": "zip",
-            "weight": 1
+            "weight": 1.1
+        },
+        {
+            "from": "zip",
+            "to": "visualize_latent_space",
+            "weight": 1.1
         },
         {
             "from": "load_project_graph",
             "to": "print",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "load_project_graph",
             "to": "nx.DiGraph",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "load_project_graph",
             "to": "data.get",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "load_project_graph",
-            "to": "G.add_nodes_from",
-            "weight": 1
+            "to": "graph.add_nodes_from",
+            "weight": 1.1
         },
         {
             "from": "load_project_graph",
             "to": "open",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "load_project_graph",
             "to": "json.load",
-            "weight": 1
-        },
-        {
-            "from": "load_project_graph",
-            "to": "edge.get",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "load_project_graph",
             "to": "edge_intensity",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "load_project_graph",
-            "to": "G.add_edge",
-            "weight": 1
+            "to": "graph.add_edge",
+            "weight": 1.1
         },
         {
-            "from": "reconnect_isolated_nodes",
-            "to": "max",
-            "weight": 1
-        },
-        {
-            "from": "reconnect_isolated_nodes",
-            "to": "print",
-            "weight": 1
-        },
-        {
-            "from": "reconnect_isolated_nodes",
-            "to": "G.add_edge",
-            "weight": 1
-        },
-        {
-            "from": "reconnect_isolated_nodes",
-            "to": "G.degree",
-            "weight": 1
-        },
-        {
-            "from": "reconnect_isolated_nodes",
-            "to": "G.out_degree",
-            "weight": 1
-        },
-        {
-            "from": "refine_graph",
-            "to": "range",
-            "weight": 1
-        },
-        {
-            "from": "refine_graph",
-            "to": "print",
-            "weight": 1
-        },
-        {
-            "from": "refine_graph",
-            "to": "G.remove_edges_from",
-            "weight": 1
-        },
-        {
-            "from": "refine_graph",
-            "to": "reconnect_isolated_nodes",
-            "weight": 1
-        },
-        {
-            "from": "refine_graph",
-            "to": "G.edges",
-            "weight": 1
-        },
-        {
-            "from": "refine_graph",
-            "to": "sum",
-            "weight": 1
-        },
-        {
-            "from": "refine_graph",
-            "to": "len",
-            "weight": 1
-        },
-        {
-            "from": "refine_graph",
-            "to": "d.get",
-            "weight": 1
-        },
-        {
-            "from": "visualize_graph",
-            "to": "nx.spring_layout",
-            "weight": 1
-        },
-        {
-            "from": "visualize_graph",
-            "to": "nx.draw",
-            "weight": 1
-        },
-        {
-            "from": "visualize_graph",
-            "to": "nx.get_edge_attributes",
-            "weight": 1
-        },
-        {
-            "from": "visualize_graph",
-            "to": "nx.draw_networkx_edge_labels",
-            "weight": 1
-        },
-        {
-            "from": "visualize_graph",
-            "to": "plt.title",
-            "weight": 1
-        },
-        {
-            "from": "visualize_graph",
-            "to": "plt.show",
-            "weight": 1
-        },
-        {
-            "from": "visualize_graph",
-            "to": "G.edges",
-            "weight": 1
-        },
-        {
-            "from": "visualize_graph",
-            "to": "G.degree",
-            "weight": 1
+            "from": "load_project_graph",
+            "to": "edge.get",
+            "weight": 1.1
         },
         {
             "from": "analyze_existing_project",
             "to": "print",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "analyze_existing_project",
             "to": "find_modules_and_functions",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "analyze_existing_project",
             "to": "display_project_structure",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "analyze_existing_project",
             "to": "project_structure.items",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "analyze_existing_project",
             "to": "build_graph_from_relationships",
-            "weight": 1
+            "weight": 1.1
+        },
+        {
+            "from": "analyze_existing_project",
+            "to": "refine_graph",
+            "weight": 1.1
         },
         {
             "from": "analyze_existing_project",
             "to": "visualize_graph",
-            "weight": 1
+            "weight": 1.1
+        },
+        {
+            "from": "analyze_existing_project",
+            "to": "render_clusters",
+            "weight": 1.1
+        },
+        {
+            "from": "analyze_existing_project",
+            "to": "visualize_latent_space",
+            "weight": 1.1
         },
         {
             "from": "analyze_existing_project",
             "to": "save_graph_to_json",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "analyze_existing_project",
             "to": "input",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "analyze_existing_project",
             "to": "find_function_calls",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "analyze_existing_project",
             "to": "all_relationships.extend",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "analyze_existing_project",
             "to": "module.replace",
-            "weight": 1
+            "weight": 1.1
+        },
+        {
+            "from": "refine_graph",
+            "to": "calculate_threshold",
+            "weight": 1.1
+        },
+        {
+            "from": "refine_graph",
+            "to": "print",
+            "weight": 1.1
+        },
+        {
+            "from": "refine_graph",
+            "to": "prune_edges",
+            "weight": 1.1
+        },
+        {
+            "from": "refine_graph",
+            "to": "reconnect_isolated_nodes",
+            "weight": 1.1
+        },
+        {
+            "from": "refine_graph",
+            "to": "adjust_edge_weights",
+            "weight": 1.1
+        },
+        {
+            "from": "refine_graph",
+            "to": "validate_graph_connectivity",
+            "weight": 1.1
+        },
+        {
+            "from": "refine_graph",
+            "to": "graph.number_of_edges",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_graph",
+            "to": "nx.spring_layout",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_graph",
+            "to": "nx.draw",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_graph",
+            "to": "nx.get_edge_attributes",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_graph",
+            "to": "nx.draw_networkx_edge_labels",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_graph",
+            "to": "plt.title",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_graph",
+            "to": "plt.savefig",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_graph",
+            "to": "print",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_graph",
+            "to": "plt.show",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_graph",
+            "to": "graph.edges",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_graph",
+            "to": "graph.degree",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_graph",
+            "to": "title.replace",
+            "weight": 1.1
+        },
+        {
+            "from": "render_clusters",
+            "to": "print",
+            "weight": 1.1
+        },
+        {
+            "from": "render_clusters",
+            "to": "SpectralClustering",
+            "weight": 1.1
+        },
+        {
+            "from": "render_clusters",
+            "to": "clustering.fit_predict",
+            "weight": 1.1
+        },
+        {
+            "from": "render_clusters",
+            "to": "nx.spring_layout",
+            "weight": 1.1
+        },
+        {
+            "from": "render_clusters",
+            "to": "plt.figure",
+            "weight": 1.1
+        },
+        {
+            "from": "render_clusters",
+            "to": "nx.draw_networkx_nodes",
+            "weight": 1.1
+        },
+        {
+            "from": "render_clusters",
+            "to": "nx.draw_networkx_edges",
+            "weight": 1.1
+        },
+        {
+            "from": "render_clusters",
+            "to": "nx.draw_networkx_labels",
+            "weight": 1.1
+        },
+        {
+            "from": "render_clusters",
+            "to": "plt.title",
+            "weight": 1.1
+        },
+        {
+            "from": "render_clusters",
+            "to": "plt.savefig",
+            "weight": 1.1
+        },
+        {
+            "from": "render_clusters",
+            "to": "plt.show",
+            "weight": 1.1
+        },
+        {
+            "from": "render_clusters",
+            "to": "nx.adjacency_matrix",
+            "weight": 1.1
+        },
+        {
+            "from": "render_clusters",
+            "to": "title.replace",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_latent_space",
+            "to": "print",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_latent_space",
+            "to": "list",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_latent_space",
+            "to": "np.zeros",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_latent_space",
+            "to": "enumerate",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_latent_space",
+            "to": "min",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_latent_space",
+            "to": "TSNE",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_latent_space",
+            "to": "tsne.fit_transform",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_latent_space",
+            "to": "plt.figure",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_latent_space",
+            "to": "plt.title",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_latent_space",
+            "to": "plt.legend",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_latent_space",
+            "to": "plt.grid",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_latent_space",
+            "to": "plt.savefig",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_latent_space",
+            "to": "plt.show",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_latent_space",
+            "to": "plt.scatter",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_latent_space",
+            "to": "plt.text",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_latent_space",
+            "to": "len",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_latent_space",
+            "to": "graph.has_edge",
+            "weight": 1.1
+        },
+        {
+            "from": "visualize_latent_space",
+            "to": "title.replace",
+            "weight": 1.1
         },
         {
             "from": "save_graph_to_json",
             "to": "print",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "save_graph_to_json",
             "to": "list",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "save_graph_to_json",
             "to": "open",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "save_graph_to_json",
             "to": "json.dump",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "save_graph_to_json",
-            "to": "G.edges",
-            "weight": 1
+            "to": "graph.edges",
+            "weight": 1.1
         },
         {
             "from": "initialize_new_project",
             "to": "print",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "initialize_new_project",
             "to": "nx.DiGraph",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "initialize_new_project",
-            "to": "G.add_nodes_from",
-            "weight": 1
+            "to": "graph.add_nodes_from",
+            "weight": 1.1
         },
         {
             "from": "initialize_new_project",
-            "to": "G.add_edge",
-            "weight": 1
+            "to": "graph.add_edge",
+            "weight": 1.1
         },
         {
             "from": "initialize_new_project",
             "to": "visualize_graph",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "main",
             "to": "print",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "main",
             "to": "input",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "main",
             "to": "initialize_new_project",
-            "weight": 1
+            "weight": 1.1
         },
         {
             "from": "main",
             "to": "analyze_existing_project",
-            "weight": 1
+            "weight": 1.1
+        },
+        {
+            "from": "calculate_threshold",
+            "to": "print",
+            "weight": 1.1
+        },
+        {
+            "from": "calculate_threshold",
+            "to": "sum",
+            "weight": 1.1
+        },
+        {
+            "from": "calculate_threshold",
+            "to": "len",
+            "weight": 1.1
+        },
+        {
+            "from": "calculate_threshold",
+            "to": "graph.edges",
+            "weight": 1.1
+        },
+        {
+            "from": "prune_edges",
+            "to": "graph.remove_edges_from",
+            "weight": 1.1
+        },
+        {
+            "from": "prune_edges",
+            "to": "print",
+            "weight": 1.1
+        },
+        {
+            "from": "prune_edges",
+            "to": "graph.edges",
+            "weight": 1.1
+        },
+        {
+            "from": "adjust_edge_weights",
+            "to": "graph.edges",
+            "weight": 1.1
+        },
+        {
+            "from": "adjust_edge_weights",
+            "to": "data.get",
+            "weight": 1.1
+        },
+        {
+            "from": "adjust_edge_weights",
+            "to": "print",
+            "weight": 1.1
+        },
+        {
+            "from": "reconnect_isolated_nodes",
+            "to": "list",
+            "weight": 1.1
+        },
+        {
+            "from": "reconnect_isolated_nodes",
+            "to": "print",
+            "weight": 1.1
+        },
+        {
+            "from": "reconnect_isolated_nodes",
+            "to": "subgraphs.sort",
+            "weight": 1.1
+        },
+        {
+            "from": "reconnect_isolated_nodes",
+            "to": "nx.connected_components",
+            "weight": 1.1
+        },
+        {
+            "from": "reconnect_isolated_nodes",
+            "to": "len",
+            "weight": 1.1
+        },
+        {
+            "from": "reconnect_isolated_nodes",
+            "to": "max",
+            "weight": 1.1
+        },
+        {
+            "from": "reconnect_isolated_nodes",
+            "to": "graph.add_edge",
+            "weight": 1.1
+        },
+        {
+            "from": "reconnect_isolated_nodes",
+            "to": "graph.to_undirected",
+            "weight": 1.1
+        },
+        {
+            "from": "reconnect_isolated_nodes",
+            "to": "graph.degree",
+            "weight": 1.1
+        },
+        {
+            "from": "validate_graph_connectivity",
+            "to": "nx.is_connected",
+            "weight": 1.1
+        },
+        {
+            "from": "validate_graph_connectivity",
+            "to": "graph.to_undirected",
+            "weight": 1.1
+        },
+        {
+            "from": "validate_graph_connectivity",
+            "to": "print",
+            "weight": 1.1
+        },
+        {
+            "from": "save_file",
+            "to": "print",
+            "weight": 1.1
+        },
+        {
+            "from": "save_file",
+            "to": "open",
+            "weight": 1.1
+        },
+        {
+            "from": "save_file",
+            "to": "json.dump",
+            "weight": 1.1
+        },
+        {
+            "from": "load_file",
+            "to": "print",
+            "weight": 1.1
+        },
+        {
+            "from": "load_file",
+            "to": "open",
+            "weight": 1.1
+        },
+        {
+            "from": "load_file",
+            "to": "json.load",
+            "weight": 1.1
+        },
+        {
+            "from": "read_json",
+            "to": "print",
+            "weight": 1.1
+        },
+        {
+            "from": "read_json",
+            "to": "open",
+            "weight": 1.1
+        },
+        {
+            "from": "read_json",
+            "to": "json.load",
+            "weight": 1.1
+        },
+        {
+            "from": "write_json",
+            "to": "print",
+            "weight": 1.1
+        },
+        {
+            "from": "write_json",
+            "to": "open",
+            "weight": 1.1
+        },
+        {
+            "from": "write_json",
+            "to": "json.dump",
+            "weight": 1.1
         }
     ]
 }

@@ -1,5 +1,10 @@
 import unittest
-from src.edge_model import unidirectional_wave, merged_wave, edge_intensity, merged_intensity
+from src.modeling.edge_model import (
+    unidirectional_wave,
+    merged_wave,
+    edge_intensity,
+    merged_intensity,
+)
 
 class TestEdgeModel(unittest.TestCase):
     def test_unidirectional_wave(self):
