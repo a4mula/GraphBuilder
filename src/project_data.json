@@ -1,0 +1,9 @@
+{
+  "nodes": ["main.py", "utils.py", "edge_model.py", "test_edge_model.py"],
+  "edges": [
+    {"from": "main.py", "to": "edge_model.py", "frequency": 5, "amplitude": 3},
+    {"from": "edge_model.py", "to": "utils.py", "frequency": 2, "amplitude": 4},
+    {"from": "utils.py", "to": "main.py", "frequency": 3, "amplitude": 2}
+  ]
+}
+
